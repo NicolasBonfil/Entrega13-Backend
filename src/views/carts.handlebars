@@ -1,0 +1,10 @@
+<div>
+    {{#each products}}
+        {{this.product.title}} {{this.product.description}} <br>
+        <button>-</button> {{this.quantity}} <button>+</button>
+        <br>
+    {{/each}}
+
+</div>
+<button id="finalizar-compra">Finalizar compra</button>
+<script src="/js/finalizarCompra.js"></script>

@@ -1,0 +1,129 @@
+paths: 
+  /api/products: 
+    get:
+      summary: Obtener los productos creados
+      tags:
+        - Products
+      responses:
+        "200":
+          description: Los productos fueron consultados correctamente
+        "500":
+          description: No pudo entregar la informacion ISE
+    post:
+      summary: Crear un producto
+      tags:
+        - Products
+      responses:
+      "200":
+        description: El producto fue creado correctamente
+      "400":
+        description: La informacion requerida esta incompleta o incorrecta
+      "500":
+        description: No pudo crear el producto ISE
+      
+  /api/products/{ProductId}: 
+    get:
+      summary: Obtener un producto en particular
+      tags:
+        - Products
+      parameters:
+        - name: pid
+          in: path
+          required: true
+          description: El id del producto que esta consultando
+          schema:
+            $type: String
+      responses:
+        "200":
+          description: El producto fue consultado correctamente
+        "400":
+          description: La informacion requerida esta incompleta o incorrecta
+        "404":
+          description: No pudo entregar la informacion por ese ProductId
+        "500":
+          description: No pudo entregar la informacion ISE
+    put:
+      summary: Actualizar un producto en particular
+      tags:
+        - Products
+      responses:
+        "200":
+          description: Se realizo la actualizacion del producto
+        "400":
+          description: La informacion requerida esta incompleta o incorrecta
+        "404":
+          description: No encontro el Id del producto para actualizar
+        "500":
+          description: No pudo actualizar la informacion ISE
+    delete:
+      summary: Eliminar un producto en particular
+      tags:
+        - Products
+      responses:
+        "200":
+          description: Se elimino el producto
+        "400":
+          description: La informacion requerida esta incompleta o incorrecta
+        "404":
+          description: No encontro el Id del producto para eliminar
+        "500":
+          description: No pudo eliminar la informacion ISE
+
+components:
+  schemas:
+    Product: 
+      type: object
+      properties:
+        _id:
+          type: ObjectId
+          description: Id autogenerado por Mongo
+        title:
+          type: string
+          description: El nombre del producto
+          required: true
+        description:
+          type: string
+          description: La descripcion del producto
+          required: true
+        price:
+          type: number
+          description: El precio del producto
+          required: true
+        code:
+          type: string
+          description: El coigo del producto
+          required: true
+          unique: true
+        stock:
+          type: stock
+          description: El stock del producto
+          required: true
+        category: 
+          type: String,
+          description: La categoria del producto
+          required: true
+        status: 
+            type: Boolean,
+            description: El estado del producto
+            required: true,
+            default: true
+        thumbnail: 
+            type: String
+            description: La url de la foto del producto
+        owner: 
+            type: String,
+            description: El usuario que creo el producto
+            required: true
+    
+
+      example:
+        _id: ObjectId("123456abcd")
+        title: Zapatillas Nike Jordan
+        description: Color Negras Talle 42
+        price: 170.000
+        code: z42tt5
+        stock: 190
+        category: Zapatillas
+        status: True
+        thumbnail: https://static.nike.com/a/images/c_limit,w_592,f_auto/t_product_v1/u_126ab356-44d8-4a06-89b4-fcdcc8df0245,c_scale,fl_relative,w_1.0,h_1.0,fl_layer_apply/2d5a9da4-00ab-40dc-a428-7fa5df88b031/air-jordan-1-mid-zapatillas-83Lm6R.png
+        owner: bonfil.nico@gmail.com

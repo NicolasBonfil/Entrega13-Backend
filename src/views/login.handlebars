@@ -1,0 +1,21 @@
+<div>
+    <h1>Login</h1>
+    <form id="loginForm">
+        <label>Email</label>
+        <input name="email">
+        <br/>
+
+        <label>Contraseña</label>
+        <input type="password" name="password">
+
+        <input type="submit">
+    </form>
+
+    <div>
+        <p><a href="/resetPasswordEmail">Olvide mi contraseña</a></p>
+        <a href="/api/session/githubCallback"><button>Autenticarse con GitHub</button></a>
+        <p>¿No estás registrado? <a href="/register">Regístrate aquí</a></p>
+    </div>
+</div>
+
+<script src="/js/login.js"></script>

@@ -1,0 +1,169 @@
+paths: 
+  /api/carts: 
+    get:
+      summary: Obtener los productos del carrito del usuario logueado
+      tags:
+        - Carts
+      responses:
+        "200":
+          description: Los productos fueron consultados correctamente
+        "404":
+          description: No hay ningun carrito asociado al usuario logueado
+        "500":
+          description: No pudo entregar la informacion ISE
+    post:
+      summary: Crear un carrito
+      tags:
+        - Carts
+      responses:
+      "200":
+        description: El carrito fue creado correctamente y asociado al usuario logueado
+      "500":
+        description: No pudo crear el producto ISE
+      
+  /api/carts/{CartId}/products/{ProductId}: 
+    post:
+      summary: Agregar un producto al carrito solicitado
+      tags:
+        - Carts
+      parameters:
+        - name: cid
+          in: path
+          required: true
+          description: El id del carrito que esta consultando
+          schema:
+            $type: String
+        - name: pid
+          in: path
+          required: true
+          description: El id del producto que desea agregar al carrito
+          schema:
+            $type: String
+      responses:
+        "200":
+          description: El producto fue agregado correctamente
+        "400":
+          description: La informacion requerida esta incompleta o incorrecta
+        "404":
+          description: No encontro el Id del carrito
+        "500":
+          description: No pudo entregar la informacion ISE
+    put:
+      summary: Actualizar la cantidad de un producto en particular
+      tags:
+        - Carts
+      parameters:
+        - name: cid
+          in: path
+          required: true
+          description: El id del carrito que esta consultando
+          schema:
+            $type: String
+        - name: pid
+          in: path
+          required: true
+          description: El id del producto que desea agregar al carrito
+          schema:
+            $type: String
+      responses:
+        "200":
+          description: Se realizo la actualizacion del producto
+        "400":
+          description: La informacion requerida esta incompleta o incorrecta
+        "404":
+          description: No encontro el Id del producto o del carrito para actualizar
+        "500":
+          description: No pudo actualizar la informacion ISE
+    delete:
+      summary: Eliminar un producto en particular del carrito
+      tags:
+        - Carts
+      parameters:
+        - name: cid
+          in: path
+          required: true
+          description: El id del carrito que esta consultando
+          schema:
+            $type: String
+        - name: pid
+          in: path
+          required: true
+          description: El id del producto que desea agregar al carrito
+          schema:
+            $type: String
+      responses:
+        "200":
+          description: Se elimino el producto del carrito
+        "400":
+          description: La informacion requerida esta incompleta o incorrecta
+        "404":
+          description: No encontro el Id del producto  o del carrito para eliminar
+        "500":
+          description: No pudo eliminar la informacion ISE
+  /api/carts/{CartId}:
+    put:
+      summary: Actualizar los productos del carrito
+      tags:
+        - Carts
+      parameters:
+        - name: cid
+          in: path
+          required: true
+          description: El id del carrito que esta consultando
+          schema:
+            $type: String
+      responses:
+        "200":
+          description: Se realizo la actualizacion de los productos
+        "400":
+          description: La informacion requerida esta incompleta o incorrecta
+        "404":
+          description: No encontro el Id del carrito para actualizar
+        "500":
+          description: No pudo actualizar la informacion ISE
+    delete:
+      summary: Eliminar los productos del carrito
+      tags:
+        - Carts
+      parameters:
+        - name: cid
+          in: path
+          required: true
+          description: El id del carrito que esta consultando
+          schema:
+            $type: String
+      responses:
+        "200":
+          description: Se eliminaron los productos del carrito
+        "400":
+          description: La informacion requerida esta incompleta o incorrecta
+        "404":
+          description: No encontro el Id del carrito para eliminar
+        "500":
+          description: No pudo eliminar la informacion ISE
+
+components:
+  schemas:
+    Cart: 
+      type: array
+      properties:
+        _id:
+          type: ObjectId
+          description: Id autogenerado por Mongo
+        ProductsInCart:
+          type: array
+          properties:
+            quantity:
+              type: number
+              description: La cantidad seleccionada del producto agregado al carrito
+            product:
+              type: ObjectId
+              description: El id del producto agregado al carrito
+    
+
+      example:
+        _id: ObjectId("123456abcd")
+        ProductsInCart: {
+          quantity: 2,
+          product: ObjectId("ab12cd45"),
+        }
