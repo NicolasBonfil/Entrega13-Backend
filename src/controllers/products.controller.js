@@ -1,5 +1,5 @@
 import productRepository from "../models/repositories/products.repository.js"
-import { HTTP_STATUS, HttpError, successResponse } from "../utils/responses.js";
+import { HTTP_STATUS, successResponse } from "../utils/responses.js";
 
 class ProductController{
     async getProducts(req, res, next){
@@ -20,8 +20,7 @@ class ProductController{
 
         try {
             const result = await productRepository.getProducts(limit, page, filtro, sort)
-            const response = successResponse(result)
-            res.status(HTTP_STATUS.OK).send(response) 
+            res.render("products", result) 
         } catch (error) {
             req.logger.error(error.message)
             next(error)
@@ -44,6 +43,9 @@ class ProductController{
         const {title, description, price, code, stock, category, thumbnail} = req.body
     
         try {
+            let owner = "ADMIN";
+            if(req.user.role == "PREMIUM") owner = req.user.email
+
             let product = {
                 title,
                 description,
@@ -51,7 +53,8 @@ class ProductController{
                 code,
                 stock,
                 category,
-                thumbnail
+                thumbnail,
+                owner
             }
         
             const newProduct = await productRepository.addProduct(product)
@@ -80,7 +83,7 @@ class ProductController{
     async deleteProduct(req, res, next){
         const pid = req.params.pid
         try {
-            const productoEliminado = await productRepository.deleteProduct(pid)
+            const productoEliminado = await productRepository.deleteProduct(pid, req.user.email)
             const response = successResponse(productoEliminado)
             res.status(HTTP_STATUS.OK).send(response)
         } catch (error) {

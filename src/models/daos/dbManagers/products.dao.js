@@ -11,9 +11,9 @@ class ProductsDAO{
         
         let products = docs
     
-        if(sort == "asc"){
+        if(sort && sort.toLowerCase() == "asc"){
             products = await productsModel.find().sort({price: 1})
-        }else if(sort == "desc"){
+        }else if(sort && sort.toLowerCase() == "desc"){
             products = await productsModel.find().sort({price: -1})
         }
     
@@ -23,7 +23,7 @@ class ProductsDAO{
         let nextLink
         hasNextPage? nextLink = nextLink = `http://localhost:8080/products?page=${nextPage}` : null
     
-        return ({payload: products, totalPages, page, hasPrevPage, hasNextPage, nextPage, prevPage, prevLink, nextLink})
+        return({products, totalPages, page, hasPrevPage, hasNextPage, nextPage, prevPage, prevLink, nextLink})
     }
 
     getProductById = async (id) => {
@@ -63,9 +63,11 @@ class ProductsDAO{
         return product
     }
 
-    deleteProduct = async (pid) => {
+    deleteProduct = async (pid, email) => {
         const product = await productsModel.findOne({_id: pid})
         if(!product) return error
+
+        if(product.owner !== email) return error
 
         await productsModel.deleteOne({_id: pid})
         return "Producto eliminado"

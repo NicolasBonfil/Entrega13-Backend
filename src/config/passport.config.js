@@ -41,12 +41,12 @@ const initializePassport = async () => {
                     last_name: "Coder",
                     email: "admincoder@gmail.com",
                     password: "soyadmincoder",
-                    role: "admin"
+                    role: "ADMIN"
                 }
             }else{
                 user = await userModel.findOne({email})
                 if(!user) return done(null, false, {message: "Usuario inexistente"})
-                user.role = "user"
+                user.role = "BASIC"
                 const validatePassword = await isValidPassword(user, password)
                 if(!validatePassword) return done(null, false, {message: "Contraseña incorrecta"})
             }

@@ -7,7 +7,7 @@ logout.addEventListener("click", () => {
     .then(response => {
         if(response.status === 200){
             localStorage.removeItem('token')
-            window.location.replace("/login")
+            window.location.replace("/")
         }
     })
 })

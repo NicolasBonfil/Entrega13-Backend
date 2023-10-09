@@ -9,8 +9,8 @@ const userSchema = new mongoose.Schema({
     password: String,
     role: {
         type: String,
-        enum: ["user", "admin", "premium"], // Define los valores permitidos
-        default: "user" // Valor predeterminado si no se especifica
+        enum: ["BASIC", "ADMIN", "PREMIUM"], // Define los valores permitidos
+        default: "BASIC" // Valor predeterminado si no se especifica
       },
     cart: {}
 })

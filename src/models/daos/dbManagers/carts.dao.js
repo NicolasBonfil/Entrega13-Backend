@@ -1,4 +1,5 @@
 import cartsModel from "../../schemas/carts.js"
+import productsModel from "../../schemas/products.js"
 
 class CartDAO{
     createCart = async (userCart) => {
@@ -18,9 +19,13 @@ class CartDAO{
         return (carrito.productsInCart) 
     }
 
-    addProductToCart = async (cid, pid) => {
+    addProductToCart = async (cid, pid, email) => {
         const cart = await cartsModel.findOne({_id: cid})
         const productIndex = cart.productsInCart.findIndex(p => p.product._id == pid);
+
+        const productM = await productsModel.findOne({_id: pid})
+
+        if(productM.owner === email) return error
 
         const product = {_id: pid}
 

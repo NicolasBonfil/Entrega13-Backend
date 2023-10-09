@@ -6,4 +6,16 @@ export class SaveUserDTO{
         this.role = payload.user.role
         this.cart = payload.user.cart
     }
+
+    async getUser(){
+        const userDto = {
+            name: this.first_name,
+            last_name: this.last_name,
+            email: this.email,
+            role: this.role,
+            cart: this.cart
+        }
+
+        return userDto
+    }
 }

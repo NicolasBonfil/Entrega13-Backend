@@ -3,6 +3,7 @@ import { dataBaseError, invalidData, missingDataError, nonExistentCart, nonexist
 import EError from "../../errors/num.js"
 import cartsDAO from "../daos/dbManagers/carts.dao.js"
 import cartsModel from "../schemas/carts.js"
+import productsModel from "../schemas/products.js"
 
 class CartsRepository{
     async getCartProducts(cid){
@@ -59,9 +60,9 @@ class CartsRepository{
         }
     }
 
-    async addProductToCart(cid, pid){
+    async addProductToCart(cid, pid, email){
         try{
-            return await cartsDAO.addProductToCart(cid, pid)
+            return await cartsDAO.addProductToCart(cid, pid, email)
         } catch (error) {
             if(!cid){
                 customError.createError({
@@ -77,6 +78,17 @@ class CartsRepository{
                     name: "Error al agregar el producto al carrito",
                     cause: missingDataError("Id del producto"),
                     message: "La informacion del id del producto esta incompleta",
+                    code: EError.INVALID_TYPES_ERROR
+                })
+            }
+
+            const product = await productsModel.findOne({_id: pid})
+
+            if(product.owner === email){
+                customError.createError({
+                    name: "Error al agregar el producto al carrito",
+                    cause: "El usuario esta intentando agregar un producto propio al carrito",
+                    message: "No puedes agregar un producto propio a tu carrito",
                     code: EError.INVALID_TYPES_ERROR
                 })
             }

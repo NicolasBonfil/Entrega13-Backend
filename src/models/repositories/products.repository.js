@@ -182,9 +182,9 @@ class ProductsRepository{
         }
     }
 
-    async deleteProduct(pid){
+    async deleteProduct(pid, email){
         try {
-            return await productsDAO.deleteProduct(pid)
+            return await productsDAO.deleteProduct(pid, email)
         } catch (error) {
             if(!pid){
                 customError.createError({
@@ -202,6 +202,15 @@ class ProductsRepository{
                     name: "Error al eliminar el producto",
                     cause: nonexistentProduct(pid),
                     message: "Producto inexistente",
+                    code: EError.NOT_FOUND
+                })
+            }
+
+            if(product.owner !== email){
+                customError.createError({
+                    name: "Error al eliminar el producto",
+                    cause: "El usuario intento eliminar un producto que no le pertenece",
+                    message: "No puedes eliminar un producto que no te pertenece",
                     code: EError.NOT_FOUND
                 })
             }

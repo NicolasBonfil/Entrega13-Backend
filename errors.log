@@ -1,0 +1,32 @@
+error: Ocurrio un error en el servidor
+error: Ocurrio un error en el servidor
+error: Ocurrio un error en el servidor
+error: Ocurrio un error en el servidor
+error: Ocurrio un error en el servidor
+error: Ocurrio un error en el servidor
+error: Ocurrio un error en el servidor
+error: Ocurrio un error en el servidor
+error: Ocurrio un error en el servidor
+error: Cannot create property '_locals' on string 'hola'
+error: Ya existe un producto con ese codigo
+error: El usuario ya tiene un carrito asignado id: 6521d36759dc0d2cc88a47d6
+error: Cannot read properties of undefined (reading 'setCookie')
+error: Cannot read properties of null (reading 'cart')
+error: Cannot read properties of undefined (reading 'setCookie')
+error: setCookie is not defined
+error: Converting circular structure to JSON
+    --> starting at object with constructor 'MongoClient'
+    |     property 's' -> object with constructor 'Object'
+    |     property 'sessionPool' -> object with constructor 'ServerSessionPool'
+    --- property 'client' closes the circle
+error: productsModel is not defined
+error: No puedes agregar un producto propio a tu carrito
+error: No puedes eliminar un producto que no te pertenece
+error: Cannot read properties of undefined (reading '_id')
+error: Cannot read properties of undefined (reading 'actualizarCookie')
+error: Cannot read properties of undefined (reading 'actualizarCookie')
+error: El usuario ya tiene un carrito asignado id: 6522b06cbeac66a10acf8373
+error: Cannot read properties of undefined (reading 'actualizarCookie')
+error: Cannot read properties of undefined (reading 'actualizarCookie')
+error: Cannot read properties of undefined (reading 'actualizarCookie')
+error: Cannot read properties of undefined (reading 'actualizarCookie')

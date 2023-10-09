@@ -1,12 +1,12 @@
 import { HTTP_STATUS } from "../utils/responses.js";
 
-const auth = (role) => {
+const auth = (roles) => {
 	return async(req, res, next) => {
 		if(!req.user){
 			return res.status(HTTP_STATUS.UNAUTHORIZED).json({error: "No authenticated"})
 		}
 		
-		if(req.user.role !== role){
+		if(!roles.includes(req.user.role.toUpperCase())){
 			return res.status(HTTP_STATUS.FORBIDDEN).json({error: "Access Denied"})
 		}
 		next();
